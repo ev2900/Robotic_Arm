@@ -1,6 +1,9 @@
 import SimpleOpenNI.*;
 SimpleOpenNI kinect;
 
+import processing.serial.*;
+Serial port;
+
 void setup() {
   size(1280, 480);
   
@@ -9,6 +12,11 @@ void setup() {
   kinect.enableUser();
   kinect.enableRGB();
   kinect.setMirror(true);
+  
+  println(Serial.list());
+  String portName = Serial.list()[0];
+  port = new Serial(this, portName, 9600);
+  
 }
 
 void draw() {
@@ -56,6 +64,12 @@ void draw() {
      fill(255,0,0);
      scale(3);
      text("shoulder: "+int(shoulderAngle)+"\n"+"elbow"+int(elbowAngle),20,20);
+    
+       byte out[] = new byte[2];
+      out[0] = byte(int(shoulderAngle));
+      out[1] = byte(int(elbowAngle));
+      port.write(out);
+  
     }
   }
 }

@@ -6,6 +6,9 @@
 Servo shoulder;
 Servo elbow;
 
+int nextServo = 0;
+int servoAngles[] = {0,0};
+
 void setup() {
   
   shoulder.attach(9);
@@ -27,7 +30,9 @@ void loop() {
       nextServo = 0;
     }
     
-    shoulder.write(ServoAngles[0]);
-    elbow.write[1]);
+    int a = (servoAngles[0]-180);
+    
+    shoulder.write(a);  
+    elbow.write(servoAngles[1]);
   }
 }
